@@ -28,6 +28,7 @@ const TabInfo = lazy(() => import('../sections/client/detail-store/TabsItem/TabI
 const TabPost = lazy(() => import('../sections/client/detail-store/TabsItem/TabPost'))
 const TabRate = lazy(() => import('../sections/client/detail-store/TabsItem/TabRate'))
 const TabServices = lazy(() => import('../sections/client/detail-store/TabsItem/TabServices'))
+const StoreInfo = lazy(() => import('../pages/admin/store/StoreInfo'))
 
 const Router = () => {
   return (
@@ -63,6 +64,7 @@ const Router = () => {
           <Route path='services-management/edit/:id' element={<ServiceUpdate />} />
           <Route path='category-management' element={<CategoryServices />} />
           <Route path='voucher-management' element={<Voucher />} />
+          <Route path='store' element={<StoreInfo />} />
         </Route>
       </Routes>
     </Suspense>
