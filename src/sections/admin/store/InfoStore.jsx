@@ -1,50 +1,89 @@
-import { Avatar, Typography, Stack, styled } from '@mui/material'
+import { Typography, Stack, styled, Box, Grid, Container } from '@mui/material'
 import React from 'react'
+import GlassBox from '../../../components/GlassBox'
 
 const InfoStore = () => {
   return (
-    <Stack direction='column' spacing={{ xs: 1, sm: 2, md: 3 }}>
-      <Typography variant='h2'>Cửa hàng: SPA Ánh Dương</Typography>
-      <Stack direction='row' justifyContent='flex-start' alignItems='center' spacing={2}>
-        <Typography>Ảnh bìa: </Typography>
-        <StyleBanner src='http://www.nicdarkthemes.com/themes/beauty/wp/demo/beauty-salon/wp-content/uploads/sites/2/2017/01/parallax-4.jpg' />
-      </Stack>
-      <Stack direction='row' justifyContent='flex-start' alignItems='center' spacing={2}>
-        <Typography>Logo: </Typography>
-        <Avatar
-          alt=''
-          src='https://cdn-amz.woka.io/images/I/41u-q6Yy2aS._SR200,200_.jpg'
-          sx={{ width: '100px', height: '100px' }}
-        />
-      </Stack>
-      <Typography>Địa chỉ: 200 Đình Thôn, Mỹ Đình, Hà Nội</Typography>
-      <Typography>Giờ làm việc: Từ 8 giờ - 22 giờ</Typography>
-      <Typography>
-        Đẹp để thành công hơn.Bất kể lúc nào muốn tỏa sáng, hãy đến với SPA Ánh Dương, chúng tôi sẽ
-        không làm bạn thất vọng. Với cuộc sống hiện đại ngày càng bận rộn, làm cho con người bị căng
-        thẳng hơn. Vì thế sự nhận thức tốt của mọi người về sức khỏe và làm đẹp được ưu tiên hàng
-        đầu. Do đó, nhu cầu về sức khỏe như việc ăn uống, tập thể dục hay đến với Spa để được thư
-        giãn, cân bằng sức khỏe ngày càng được chú trọng. Hiện nay, Spa không chỉ dành cho những
-        người giàu có. Mà Spa đã trở thành một phần tất yếu của cuộc sống. Nhu cầu về sức khỏe và
-        làm đẹp hiện nay ngày càng được nâng cao, chính vì lẽ đó SMYou Spa đã ra đời, với mong muốn
-        mang đến cho phái đẹp vẻ đẹp tự nhiên, hoàn hảo, an toàn nhất cho quý khách. ĐIỀU GÌ ĐẶC
-        BIỆT Ở SMYOU SPA KHIẾN BẠN YÊU NGAY LẦN ĐẦU TIÊN? Sự thân thiện và thư giãn là cảm nhận đầu
-        tiên khi bạn ghé thăm SMYou Spa. Với hình ảnh cây SMYou tươi mát, không gian tinh khiết ngập
-        tràn các hương thơm từ tinh dầu thảo dược thiên nhiên và âm nhạc du dương đánh thức mọi giác
-        quan, giúp bạn như lạc vào thế giới riêng thật hài hòa, trang nhã. Các vật dụng được trang
-        trí trong căn phòng cũng được phối hợp một cách tinh tế làm cho không gian thêm thoáng mát,
-        sống động nhưng không kém phần lịch sự.
-      </Typography>
-    </Stack>
+    <GlassBox sx={{ padding: '0' }}>
+      <Box>
+        <Box>
+          <StyleBackground src='http://www.nicdarkthemes.com/themes/beauty/wp/demo/beauty-salon/wp-content/uploads/sites/2/2017/01/parallax-4.jpg' />
+        </Box>
+        <GlassBox
+          sx={{
+            maxHeight: { xs: '90px', sm: '150px' },
+            maxWidth: { xs: '90px', sm: '150px' },
+            border: '10px solid #fff',
+            borderRadius: '50%',
+            padding: 0,
+            position: 'relative',
+            left: '50%',
+            top: { xs: -70, sm: -90 },
+            backdropFilter: 'blur(0px)',
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <StyleAvatar src='https://cdn-amz.woka.io/images/I/41u-q6Yy2aS._SR200,200_.jpg' />
+        </GlassBox>
+      </Box>
+      <Container
+        maxWidth='sm'
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <Stack sx={{ marginTop: '-80px' }}>
+          <Grid container direction='row' justifyContent='center' spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant='h3' sx={{ textAlign: 'center' }}>
+                Spa Ánh Dương
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Typography variant='subtitle2'>Địa chỉ: 200 Đình Thôn, Mỹ đình Hà Nội</Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Typography variant='subtitle2'>Hotline: 0327025224</Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Typography variant='subtitle2'>Giờ làm việc từ 8h - 22h</Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Typography variant='subtitle2'>Email: admin@gmail.com</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant='subtitle2'>
+                Thẩm mỹ viện Seoul Spa – Thương hiệu làm đẹp uy tín hàng đầu Việt Nam Sau 12 năm
+                thành lập, Thẩm mỹ viện SeoulSpa.Vn đã vươn mình trở thành hệ thống làm đẹp hàng đầu
+                Việt Nam, sở hữu hơn 50 chi nhánh có mặt ở khắp mọi miền tổ quốc, dẫn đầu về chất
+                lượng dịch vụ, đáp ứng nhu cầu làm đẹp phong phú của phái đẹp. Trên hành trình đó,
+                Thẩm mỹ viện SeoulSpa.Vn không ngừng nỗ lực để thực hiện sứ mệnh “Thăng hoa nhan sắc
+                Việt” & khẳng định chữ “Tín – Tâm – Tầm”.
+              </Typography>
+            </Grid>
+          </Grid>
+        </Stack>
+      </Container>
+    </GlassBox>
   )
 }
 
-const StyleBanner = styled('img')`
-  width: 25%;
-  height: 100px;
-  max-width: 25%;
-  max-height: 100px;
+const StyleBackground = styled('img')`
+  width: 100%;
+  max-width: 100%;
+  height: 200px;
+  max-height: 100%;
   object-fit: cover;
+  border-radius: 0 0 20px 20px;
+  @media (max-width: 768px) {
+    height: 150px;
+  }
+`
+
+const StyleAvatar = styled('img')`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  backdrop-filter: blur(0);
 `
 
 export default InfoStore

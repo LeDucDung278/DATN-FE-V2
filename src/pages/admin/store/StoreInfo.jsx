@@ -3,6 +3,7 @@ import { Breadcrumbs, Stack, Link, Typography, Fab } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import InfoStore from '../../../sections/admin/store/InfoStore'
 import { Edit } from '@mui/icons-material'
+import FormStore from '../../../sections/admin/store/FormStore'
 
 const StoreInfo = () => {
   return (
@@ -23,7 +24,8 @@ const StoreInfo = () => {
           <Edit />
         </Fab>
       </Stack>
-      <InfoStore />
+      {/* <InfoStore /> */}
+      <FormStore />
     </Stack>
   )
 }
