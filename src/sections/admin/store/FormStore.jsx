@@ -1,5 +1,5 @@
-import React from 'react'
-import { Box, Container, Grid, Stack, styled, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Box, Container, Grid, IconButton, Stack, styled, Typography } from '@mui/material'
 import GlassBox from '../../../components/GlassBox'
 import RHFTextField from '../../../components/ReactHookForm/RHFTextField'
 import RHFProvider from '../../../components/ReactHookForm/RHFProvider'
@@ -9,34 +9,112 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { modules, formats } from '../../../components/EditorToolbar'
 import MainButton from '../../../components/MainButton'
+import storeApi from '../../../api/store'
+import { CameraAlt } from '@mui/icons-material'
+
+const defaultFormValues = {
+  name: '',
+  address: '',
+  open: '',
+  close: '',
+  hotline: '',
+  email: 'beautyparadise1102@gmail.com',
+}
 
 const FormStore = () => {
-  const methods = useForm({})
+  const [description, setDescription] = useState('')
+  const [id, setId] = useState('')
+
+  console.log(id)
+
+  const methods = useForm({
+    defaultValues: defaultFormValues,
+  })
   const { handleSubmit, reset } = methods
 
   const onSubmit = async (values) => {}
 
+  const handleGetStore = async () => {
+    try {
+      const data = await storeApi.getOne('633e5ddff1be5d928b97c813')
+      setDescription(data.desc)
+      setId(data._id)
+      reset({ ...data })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleUpdateStore = async (id, store) => {
+    try {
+      const data = await serviceApi.update(id, store)
+      console.log(data)
+      setTimeout(() => {
+        navigate('/admin/services-management')
+      }, 2000)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    handleGetStore()
+  }, [])
+
   return (
     <GlassBox sx={{ padding: '0' }}>
       <Box>
-        <Box>
+        <Box sx={{ position: 'relative' }}>
           <StyleBackground src='http://www.nicdarkthemes.com/themes/beauty/wp/demo/beauty-salon/wp-content/uploads/sites/2/2017/01/parallax-4.jpg' />
         </Box>
+        <MainButton
+          colorType='primary'
+          component='label'
+          sx={{
+            position: 'absolute',
+            right: '-70px',
+            top: { xs: 70, sm: 150 },
+            backdropFilter: 'blur(0px)',
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <input hidden accept='image/*' type='file' />
+          <CameraAlt />
+          <Typography variant='subtitle2'>Chỉnh sửa ảnh bìa</Typography>
+        </MainButton>
+
         <GlassBox
           sx={{
             maxHeight: { xs: '90px', sm: '150px' },
             maxWidth: { xs: '90px', sm: '150px' },
-            border: '10px solid #fff',
+            border: '5px solid #fff',
             borderRadius: '50%',
             padding: 0,
-            position: 'relative',
+            position: 'absolute',
             left: '50%',
-            top: { xs: -70, sm: -90 },
+            top: { xs: 70, sm: 90 },
             backdropFilter: 'blur(0px)',
             transform: 'translateX(-50%)',
           }}
         >
           <StyleAvatar src='https://cdn-amz.woka.io/images/I/41u-q6Yy2aS._SR200,200_.jpg' />
+          <IconButton
+            aria-label='upload picture'
+            component='label'
+            sx={{
+              width: '30px',
+              height: '30px',
+              position: 'absolute',
+              // right: '35%',
+              left: '85%',
+              top: { xs: 70, sm: 110 },
+              backdropFilter: 'blur(0px)',
+              transform: 'translateX(-50%)',
+            }}
+          >
+            <CameraAlt />
+            <input hidden accept='image/*' type='file' />
+          </IconButton>
         </GlassBox>
       </Box>
       <Container
@@ -44,15 +122,13 @@ const FormStore = () => {
         sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
         <RHFProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-          <Stack sx={{ marginTop: '-80px' }}>
+          <Stack sx={{ marginTop: '50px' }}>
             <Grid container direction='row' justifyContent='center' spacing={2}>
               <Grid item xs={12}>
                 <RHFTextField name='name' label='Tên cửa hàng' />
-                {/* <Typography variant='h3' sx={{textAlign: 'center'}}>Spa Ánh Dương</Typography> */}
               </Grid>
               <Grid item xs={12} sm={6}>
-                <RHFTextField name='address' label='Đại chỉ' />
-                {/* <Typography variant='subtitle2'>Địa chỉ: 200 Đình Thôn, Mỹ đình Hà Nội</Typography> */}
+                <RHFTextField name='address' label='Địa chỉ' />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Grid container direction='row' justifyContent='center' spacing={3}>
@@ -63,15 +139,12 @@ const FormStore = () => {
                     <RHFTextField name='close' label='Giờ đóng cửa' />
                   </Grid>
                 </Grid>
-                {/* <Typography variant='subtitle2'>Hotline: 0327025224</Typography> */}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <RHFTextField name='hotline' label='Số điện thoại' />
-                {/* <Typography variant='subtitle2'>Giờ làm việc từ 8h - 22h</Typography> */}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <RHFTextField name='email' label='Email' />
-                {/* <Typography variant='subtitle2'>Email: admin@gmail.com</Typography> */}
               </Grid>
 
               <Grid item xs={12}>
@@ -84,9 +157,9 @@ const FormStore = () => {
                   placeholder={'Viết mô tả...'}
                   modules={modules}
                   formats={formats}
-                  //   defaultValue={description}
-                  //   value={description}
-                  //   onChange={setDescription}
+                  defaultValue={description}
+                  value={description}
+                  onChange={setDescription}
                 />
               </Grid>
               <Grid item xs={12} mt='40px'>
@@ -101,14 +174,6 @@ const FormStore = () => {
                 </Stack>
               </Grid>
             </Grid>
-            {/* <Typography variant='subtitle2'>
-                Thẩm mỹ viện Seoul Spa – Thương hiệu làm đẹp uy tín hàng đầu Việt Nam Sau 12 năm
-                thành lập, Thẩm mỹ viện SeoulSpa.Vn đã vươn mình trở thành hệ thống làm đẹp hàng đầu
-                Việt Nam, sở hữu hơn 50 chi nhánh có mặt ở khắp mọi miền tổ quốc, dẫn đầu về chất
-                lượng dịch vụ, đáp ứng nhu cầu làm đẹp phong phú của phái đẹp. Trên hành trình đó,
-                Thẩm mỹ viện SeoulSpa.Vn không ngừng nỗ lực để thực hiện sứ mệnh “Thăng hoa nhan sắc
-                Việt” & khẳng định chữ “Tín – Tâm – Tầm”.
-              </Typography> */}
           </Stack>
         </RHFProvider>
       </Container>

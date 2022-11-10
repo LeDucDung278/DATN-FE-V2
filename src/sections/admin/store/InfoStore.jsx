@@ -1,13 +1,31 @@
+import React, { useState, useEffect } from 'react'
 import { Typography, Stack, styled, Box, Grid, Container } from '@mui/material'
-import React from 'react'
 import GlassBox from '../../../components/GlassBox'
+import storeApi from '../../../api/store'
 
 const InfoStore = () => {
+  const [store, setStore] = useState([])
+
+  // const id = "633e5ddff1be5d928b97c813"
+
+  const handleGetStore = async () => {
+    try {
+      const data = await storeApi.getOne('633e5ddff1be5d928b97c813')
+      setStore(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    handleGetStore()
+  }, [])
+
   return (
     <GlassBox sx={{ padding: '0' }}>
       <Box>
         <Box>
-          <StyleBackground src='http://www.nicdarkthemes.com/themes/beauty/wp/demo/beauty-salon/wp-content/uploads/sites/2/2017/01/parallax-4.jpg' />
+          <StyleBackground src={store.coverImg} />
         </Box>
         <GlassBox
           sx={{
@@ -23,7 +41,7 @@ const InfoStore = () => {
             transform: 'translateX(-50%)',
           }}
         >
-          <StyleAvatar src='https://cdn-amz.woka.io/images/I/41u-q6Yy2aS._SR200,200_.jpg' />
+          <StyleAvatar src={store.avt} />
         </GlassBox>
       </Box>
       <Container
@@ -34,23 +52,26 @@ const InfoStore = () => {
           <Grid container direction='row' justifyContent='center' spacing={2}>
             <Grid item xs={12}>
               <Typography variant='h3' sx={{ textAlign: 'center' }}>
-                Spa Ánh Dương
+                {store.name}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Typography variant='subtitle2'>Địa chỉ: 200 Đình Thôn, Mỹ đình Hà Nội</Typography>
+              <Typography variant='subtitle2'>Địa chỉ: {store.address}</Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Typography variant='subtitle2'>Hotline: 0327025224</Typography>
+              <Typography variant='subtitle2'>Hotline: {store.hotline}</Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Typography variant='subtitle2'>Giờ làm việc từ 8h - 22h</Typography>
+              <Typography variant='subtitle2'>
+                Giờ làm việc từ {store.open}h - {store.close}h
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant='subtitle2'>Email: admin@gmail.com</Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography variant='subtitle2'>
+                {store.desc}
                 Thẩm mỹ viện Seoul Spa – Thương hiệu làm đẹp uy tín hàng đầu Việt Nam Sau 12 năm
                 thành lập, Thẩm mỹ viện SeoulSpa.Vn đã vươn mình trở thành hệ thống làm đẹp hàng đầu
                 Việt Nam, sở hữu hơn 50 chi nhánh có mặt ở khắp mọi miền tổ quốc, dẫn đầu về chất
